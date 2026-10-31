@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ЧП САДАРХ — мини-экскаватор 2 т и эвакуатор, Витебск</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ease:cubic-bezier(.76,0,.24,1);--display:'Unbounded',sans-serif;--text:'Golos Text',sans-serif;--mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#0a0a0b;color:#f5f4f0;font-family:var(--text);-webkit-font-smoothing:antialiased}
+::selection{background:#ff7a18;color:#0a0a0b}
+a{color:inherit;text-decoration:none}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.stage{position:fixed;inset:0;overflow:hidden;background:#0a0a0b}
+.scene{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;opacity:0;visibility:hidden;transition:opacity .8s var(--ease),visibility .8s;background:#0a0a0b;color:#f5f4f0}
+.scene.live{opacity:1;visibility:visible;z-index:2}
+.scene::-webkit-scrollbar{width:0}
+.pad{max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px)}
+:root{--acc:#ff7a18;--dim:#8f8f96;--line:rgba(245,244,240,.16)}
+.grain{position:fixed;inset:0;z-index:35;pointer-events:none;opacity:.15;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.6'/></svg>")}
+.vig{position:fixed;inset:0;z-index:34;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 45%,rgba(0,0,0,.5) 100%)}
+#curtain{position:fixed;inset:0;z-index:60;pointer-events:none;display:flex;align-items:center;justify-content:center}
+#curtain .pane{position:absolute;inset:0;background:#08080a;transform:scaleY(0);transform-origin:bottom;transition:transform .6s var(--ease)}
+#curtain .lbl{position:relative;color:var(--acc);font-family:var(--mono);font-size:12px;letter-spacing:.3em;opacity:0;transition:opacity .3s}
+#curtain.on .pane{transform:scaleY(1)}
+#curtain.on .lbl{opacity:1;transition-delay:.18s}
+#curtain.out .pane{transform:scaleY(0);transform-origin:top}
+#curtain.out .lbl{opacity:0}
+#hud{position:fixed;inset:0;z-index:40;pointer-events:none}
+#hud .t{position:absolute;top:24px;left:clamp(20px,5vw,72px);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+#hud .r{position:absolute;top:24px;right:clamp(20px,5vw,72px);display:flex;gap:20px;pointer-events:auto;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+#hud .r a{cursor:pointer;opacity:.85;text-shadow:0 2px 20px rgba(0,0,0,.75)}#hud .r a:hover{opacity:1;color:var(--acc)}
+#dots{position:fixed;right:clamp(14px,2vw,26px);top:50%;transform:translateY(-50%);z-index:45;display:flex;flex-direction:column;gap:14px}
+#dots i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.32);cursor:pointer;transition:.35s}
+#dots i.on{background:var(--acc);height:18px;border-radius:3px}
+#cursor{position:fixed;z-index:70;width:10px;height:10px;border-radius:50%;background:var(--acc);pointer-events:none;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .3s,height .3s;left:-40px;top:-40px}
+#cursor.big{width:70px;height:70px;background:#fff}
+.hero{position:relative;min-height:112%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(40px,7vh,90px)}
+.hero .media{position:absolute;inset:0;overflow:hidden}
+.hero .media img{width:100%;height:120%;object-fit:cover;transform:scale(1.05);filter:saturate(.92) contrast(1.04);will-change:transform}
+.hero .media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,8,.88) 0%,rgba(6,6,8,.3) 34%,rgba(6,6,8,.56) 64%,rgba(6,6,8,.97) 100%)}
+.hero .inner{position:relative;z-index:3}
+.hero .kicker{margin-bottom:22px;color:#dcdad4}
+.hero h1{font-family:var(--display);font-weight:200;font-size:clamp(34px,7.2vw,116px);line-height:.93;letter-spacing:-.05em;text-shadow:0 8px 60px rgba(0,0,0,.45)}
+.hero h1 .row{display:block;overflow:hidden}
+.hero h1 .row span{display:block;transform:translateY(115%);transition:transform 1.1s var(--ease)}
+.scene.live .hero h1 .row span{transform:none}
+.hero h1 .row:nth-child(2) span{transition-delay:.09s}
+.hero h1 .row:nth-child(3) span{transition-delay:.18s}
+.hero h1 b{font-weight:600}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero .sub{margin-top:clamp(22px,4vw,44px);display:flex;gap:clamp(24px,5vw,80px);justify-content:space-between;align-items:flex-end;flex-wrap:wrap}
+.hero .sub p{max-width:430px;font-size:clamp(15px,1.2vw,18px);line-height:1.55;color:#e4e2dc;text-shadow:0 2px 20px rgba(0,0,0,.7)}
+.enter{display:inline-flex;align-items:center;gap:14px;border:1px solid var(--acc);color:var(--acc);border-radius:100px;padding:15px 28px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;background:rgba(10,10,11,.28);backdrop-filter:blur(8px);transition:.4s var(--ease)}
+.enter:hover{background:var(--acc);color:#0a0a0b;transform:translateY(-3px)}
+.enter.fill{background:var(--acc);color:#0a0a0b}
+.enter.fill:hover{filter:brightness(1.08)}
+.specs{display:flex;gap:clamp(18px,3vw,44px);flex-wrap:wrap;margin-top:clamp(22px,4vw,38px);border-top:1px solid rgba(245,244,240,.24);padding-top:20px;max-width:900px}
+.specs div span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#adaaa4;margin-bottom:6px}
+.specs div b{font-weight:500;font-size:clamp(14px,1.2vw,17px)}
+.scrollhint{position:absolute;right:clamp(20px,5vw,72px);bottom:clamp(26px,6vh,64px);z-index:3;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:#cdcbc5;display:flex;align-items:center;gap:10px;text-transform:uppercase}
+.scrollhint i{animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(7px)}}
+.s2top{padding:clamp(76px,12vh,116px) 0 32px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.s2top h2{font-family:var(--display);font-weight:200;font-size:clamp(28px,4.8vw,76px);line-height:.98;letter-spacing:-.045em}
+.s2top h2 em{font-style:normal;color:var(--acc)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.4vw,32px);padding-bottom:80px}
+.serv{position:relative;overflow:hidden;border:1px solid var(--line);min-height:clamp(420px,62vh,600px);display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(20px,2.6vw,34px)}
+.serv .bg{position:absolute;inset:0;overflow:hidden}
+.serv .bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform 1.2s var(--ease);filter:saturate(.85) brightness(.78)}
+.serv:hover .bg img{transform:scale(1.09);filter:saturate(1) brightness(.92)}
+.serv .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,10,.2) 0%,rgba(8,8,10,.5) 45%,rgba(8,8,10,.96) 100%)}
+.serv .in{position:relative;z-index:2}
+.serv .top{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--acc);text-transform:uppercase}
+.serv h3{font-family:var(--display);font-weight:200;font-size:clamp(24px,3.1vw,44px);letter-spacing:-.04em;line-height:1;margin:12px 0 16px}
+.serv ul{list-style:none;display:grid;gap:7px}
+.serv li{font-size:15px;line-height:1.4;color:#dedcd6;display:flex;gap:9px}
+.serv li:before{content:"—";color:var(--acc)}
+.serv .foot{margin-top:16px;padding-top:14px;border-top:1px solid rgba(245,244,240,.22);font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#b9b7b1}
+.slide{position:relative;height:100vh;overflow:hidden;display:flex;align-items:flex-end;padding:0 0 clamp(46px,8vh,92px)}
+.slide .bg{position:absolute;inset:0}
+.slide .bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.6s var(--ease);filter:saturate(.92) contrast(1.05)}
+.slide.in .bg img{transform:scale(1)}
+.slide .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,10,.8) 0%,rgba(8,8,10,.15) 38%,rgba(8,8,10,.94) 100%)}
+.slide .txt{position:relative;z-index:3;width:100%;max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px)}
+.slide .num{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--acc);display:block;margin-bottom:16px}
+.slide h2{font-family:var(--display);font-weight:200;font-size:clamp(30px,5.6vw,86px);line-height:.96;letter-spacing:-.05em;max-width:17ch;text-shadow:0 6px 50px rgba(0,0,0,.5)}
+.slide h2 em{font-style:normal;color:var(--acc)}
+.slide p{margin-top:20px;max-width:520px;font-size:clamp(14px,1.15vw,17px);line-height:1.55;color:#dcdad4}
+.prog{position:sticky;bottom:0;height:2px;background:rgba(255,255,255,.14);z-index:5}
+.prog b{display:block;height:100%;width:0;background:var(--acc)}
+.final{position:relative;min-height:100%;display:flex;flex-direction:column;justify-content:center;padding:clamp(88px,14vh,140px) 0 clamp(58px,9vh,90px)}
+.final .media{position:absolute;inset:0;overflow:hidden}
+.final .media img{width:100%;height:100%;object-fit:cover;filter:brightness(.4) saturate(.8)}
+.final .media:after{content:"";position:absolute;inset:0;background:radial-gradient(90% 90% at 50% 50%,rgba(8,8,10,.35) 0%,rgba(8,8,10,.93) 100%)}
+.final .in{position:relative;z-index:3}
+.final h2{font-family:var(--display);font-weight:200;font-size:clamp(38px,8.6vw,148px);line-height:.88;letter-spacing:-.055em}
+.final h2 em{font-style:normal;color:var(--acc)}
+.final .row{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:clamp(24px,5vw,50px)}
+.final .mail{font-size:clamp(15px,1.6vw,22px);border-bottom:1px solid rgba(245,244,240,.4);padding-bottom:4px;transition:.3s}
+.final .mail:hover{color:var(--acc);border-color:var(--acc)}
+.contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:clamp(30px,5vw,58px);border-top:1px solid rgba(245,244,240,.24);padding-top:24px;max-width:940px}
+.contacts span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#a3a19b;margin-bottom:8px}
+.contacts b{font-weight:500;font-size:clamp(14px,1.3vw,17px);line-height:1.4}
+.foot{position:absolute;bottom:18px;left:0;right:0;z-index:3}
+@media(max-width:900px){.two,.contacts{grid-template-columns:1fr}#dots{display:none}.serv{min-height:380px}.hero{min-height:100%}}
+</style>
+</head>
+<body>
+<div class="grain"></div><div class="vig"></div>
+<div id="curtain"><div class="pane"></div><span class="lbl"></span></div>
+<div id="cursor"></div>
+<div id="hud"><div class="t">ЧП САДАРХ</div><div class="r"><a data-go="1">Начало</a><a data-go="2">Услуги</a><a data-go="3">В работе</a><a data-go="4">Заявка</a></div></div>
+<div id="dots"><i data-go="1" class="on"></i><i data-go="2"></i><i data-go="3"></i><i data-go="4"></i></div>
+<div class="stage">
+<section class="scene live" id="s1">
+<div class="hero">
+<div class="media"><img id="heroImg" src="https://base44.app/api/apps/6ad37d78090d82fb591123ec/files/mp/public/6ad37d78090d82fb591123ec/16747448c_exc.jpg" alt="Мини-экскаватор копает траншею"></div>
+<div class="pad inner">
+<p class="mono kicker">Витебск и Витебская область · ЧП САДАРХ</p>
+<h1><span class="row"><span>Мини-экскаватор</span></span><span class="row"><span><em>2 тонны</em> и</span></span><span class="row"><span><b>эвакуатор.</b></span></span></h1>
+<div class="sub"><p>Копаем траншеи, фундаменты и ямы глубиной до 2 метров. Эвакуируем автомобили и перевозим технику по городу и области.</p><button class="enter fill" data-go="4">Обсудить задачу <span>→</span></button></div>
+<div class="specs">
+<div><span>Экскаватор</span><b>мини, 2 тонны</b></div>
+<div><span>Глубина копания</span><b>до 2 метров</b></div>
+<div><span>Техника</span><b>экскаватор · эвакуатор</b></div>
+<div><span>География</span><b>Витебск и область</b></div>
+</div></div>
+<div class="scrollhint"><span>Листайте</span><i>↓</i></div>
+</div>
+</section>
+<section class="scene" id="s2">
+<div class="pad s2top"><h2>Две машины —<br><em>два дела</em></h2><p class="mono" style="color:#8f8f96">Земляные работы · эвакуация</p></div>
+<div class="pad two">
+<article class="serv">
+<div class="bg"><img src="https://base44.app/api/apps/6ad37d78090d82fb591123ec/files/mp/public/6ad37d78090d82fb591123ec/9c30a7ea1_trench.jpg" alt="Траншея под коммуникации"></div>
+<div class="in"><p class="top">01 · Земляные работы</p><h3>Мини-экскаватор 2 т</h3>
+<ul><li>Траншеи под воду, газ и кабель</li><li>Котлованы под фундамент и септик</li><li>Ямы под столбы и посадки</li><li>Планировка и расчистка участка</li><li>Копка прудов и дренажа</li></ul>
+<div class="foot">Глубина до 2 м · проезд в узкие места</div></div>
+</article>
+<article class="serv">
+<div class="bg"><img src="https://base44.app/api/apps/6ad37d78090d82fb591123ec/files/mp/public/6ad37d78090d82fb591123ec/0a22edc33_tow.jpg" alt="Эвакуатор грузит автомобиль"></div>
+<div class="in"><p class="top">02 · Эвакуация</p><h3>Эвакуатор</h3>
+<ul><li>Эвакуация легковых авто после ДТП</li><li>Перевозка неисправных машин</li><li>Доставка техники на объект</li><li>Погрузка и фиксация на платформе</li><li>Выезд по городу и области</li></ul>
+<div class="foot">Витебск · Витебская область</div></div>
+</article>
+</div>
+</section>
+<section class="scene" id="s3">
+<div class="slide in">
+<div class="bg"><img src="https://base44.app/api/apps/6ad37d78090d82fb591123ec/files/mp/public/6ad37d78090d82fb591123ec/f8aa77240_bucket.jpg" alt="Ковш экскаватора в грунте"></div>
+<div class="txt"><span class="num">01 / 04</span><h2>Копаем <em>там</em>, где большая техника не пройдёт</h2><p>Два метра глубины, узкий проезд, двор с плиткой: мини-экскаватор заходит туда, куда самосвал не сунется.</p></div>
+</div>
+<div class="slide">
+<div class="bg"><img src="https://base44.app/api/apps/6ad37d78090d82fb591123ec/files/mp/public/6ad37d78090d82fb591123ec/9c30a7ea1_trench.jpg" alt="Готовая траншея с трубами"></div>
+<div class="txt"><span class="num">02 / 04</span><h2>Траншея <em>под ключ</em>, а не яма</h2><p>Вода, газ, кабель, дренаж: копаем по разметке, с нужным уклоном и аккуратной выемкой грунта.</p></div>
+</div>
+<div class="slide">
+<div class="bg"><img src="https://base44.app/api/apps/6ad37d78090d82fb591123ec/files/mp/public/6ad37d78090d82fb591123ec/0a22edc33_tow.jpg" alt="Погрузка автомобиля на эвакуатор"></div>
+<div class="txt"><span class="num">03 / 04</span><h2>Забираем <em>с места</em>, не ждём эвакуации</h2><p>Погрузка и фиксация на платформе, чтобы машина доехала без новых повреждений.</p></div>
+</div>
+<div class="slide">
+<div class="bg"><img src="https://base44.app/api/apps/6ad37d78090d82fb591123ec/files/mp/public/6ad37d78090d82fb591123ec/5467dc35c_trailer.jpg" alt="Перевозка техники по области"></div>
+<div class="txt"><span class="num">04 / 04</span><h2>Возим технику <em>по области</em></h2><p>Витебск и район: доставка мини-техники на объект, приезжаем со своей машиной и трапом.</p></div>
+</div>
+<div class="prog"><b id="progBar"></b></div>
+</section>
+<section class="scene" id="s4">
+<div class="final">
+<div class="media"><img src="https://base44.app/api/apps/6ad37d78090d82fb591123ec/files/mp/public/6ad37d78090d82fb591123ec/5467dc35c_trailer.jpg" alt="Перевозка мини-экскаватора"></div>
+<div class="pad in">
+<p class="mono" style="color:#a3a19b;margin-bottom:22px">Свободное время на этой неделе</p>
+<h2>Нужна<br>техника<em>?</em></h2>
+<div class="row"><a class="enter fill" href="tel:+375336999238">Позвонить →</a><a class="mail" href="tel:+375336999238">+375 (33) 699-92-38</a></div>
+<div class="contacts">
+<div><span>Телефон</span><b>+375 (33) 699-92-38</b></div>
+<div><span>Услуги</span><b>Мини-экскаватор 2 т · эвакуатор</b></div>
+<div><span>База</span><b>Витебск, Витебская область</b></div>
+</div></div>
+<div class="foot mono" style="color:#83838a;padding-left:clamp(20px,5vw,72px)">ЧП САДАРХ · земляные работы и эвакуация · 2026</div>
+</div>
+</section>
+</div>
+<script>
+(function(){
+var scenes=[].slice.call(document.querySelectorAll('.scene'));
+var dots=[].slice.call(document.querySelectorAll('#dots i'));
+var curtain=document.getElementById('curtain');
+var lbl=curtain.querySelector('.lbl');
+var cursor=document.getElementById('cursor');
+var progBar=document.getElementById('progBar');
+var slides=[].slice.call(document.querySelectorAll('#s3 .slide'));
+var cur=0,busy=false;
+function paint(){for(var i=0;i<scenes.length;i++)scenes[i].classList.toggle('live',i===cur);for(var j=0;j<dots.length;j++)dots[j].classList.toggle('on',j===cur);}
+function onScroll(){try{var s=scenes[cur];if(!s)return;var img=document.getElementById('heroImg');if(img&&s.id==='s1')img.style.transform='translateY('+(s.scrollTop*0.16)+'px) scale(1.05)';if(s.id==='s3'&&progBar){var max=s.scrollHeight-s.clientHeight;progBar.style.width=(max>0?(s.scrollTop/max*100):0)+'%';}}catch(e){}}
+function sync(){paint();if(scenes[cur])scenes[cur].scrollTop=0;onScroll();}
+function go(n){if(busy||n===cur||n<0||n>=scenes.length)return;busy=true;try{lbl.textContent=('0'+(cur+1)).slice(-2)+'  →  '+('0'+(n+1)).slice(-2);}catch(e){}curtain.classList.add('on');setTimeout(function(){cur=n;try{sync();}catch(e){}curtain.classList.remove('on');curtain.classList.add('out');setTimeout(function(){curtain.classList.remove('out');busy=false;},620);},600);}
+document.querySelectorAll('[data-go]').forEach(function(el){el.addEventListener('click',function(){go(parseInt(el.dataset.go,10)-1);});});
+scenes.forEach(function(s){s.addEventListener('scroll',onScroll,{passive:true});});
+addEventListener('wheel',function(e){if(busy)return;var s=scenes[cur];var atEnd=s.scrollTop+s.clientHeight>=s.scrollHeight-10;if(e.deltaY>24&&atEnd)go(cur+1);if(e.deltaY<-24&&s.scrollTop<=6)go(cur-1);},{passive:true});
+addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')go(cur+1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(cur-1);});
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){en.forEach(function(x){x.target.classList.toggle('in',x.isIntersecting);});},{threshold:.35});slides.forEach(function(sl){io.observe(sl);});}else{slides.forEach(function(sl){sl.classList.add('in');});}
+var tx=0,ty=0,cx=0,cy=0;
+addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;});
+(function loop(){cx+=(tx-cx)*0.18;cy+=(ty-cy)*0.18;cursor.style.left=cx+'px';cursor.style.top=cy+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.serv').forEach(function(el){el.addEventListener('mouseenter',function(){cursor.classList.add('big');});el.addEventListener('mouseleave',function(){cursor.classList.remove('big');});});
+var h=(location.hash||'').replace('#','');var m=h.match(/^([1-4])(?:-([1-4]))?$/);
+if(m){cur=parseInt(m[1],10)-1;paint();if(m[2]&&scenes[cur]){var sl=slides[parseInt(m[2],10)-1];if(sl)setTimeout(function(){sl.scrollIntoView({block:'start'});},60);}}
+sync();
+})();
+</script>
+</body>
+</html>
