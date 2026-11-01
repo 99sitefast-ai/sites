@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>МОНОЛИТ — строительство домов под ключ · Минск</title>
+<meta name="description" content="Монолитное и каркасное строительство частных домов в Минске и области. Проект, фундамент, коробка, отделка. С 2011 года, 148 объектов.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400;500;700&family=Golos+Text:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<div class="loader" id="loader">
+  <div class="loader__inner">
+    <div class="loader__brand">МОНОЛИТ<span>®</span></div>
+    <div class="loader__bar"><i id="loaderBar"></i></div>
+    <div class="loader__meta">
+      <span id="loaderNum">0</span><span class="loader__pct">%</span>
+      <span class="loader__note">подготовка проекта</span>
+    </div>
+  </div>
+</div>
+
+<div class="curtain" id="curtain"><span id="curtainLabel"></span></div>
+
+<div class="cursor" id="cursor"><span id="cursorText"></span></div>
+
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top" data-scroll-to="0">МОНОЛИТ<span>®</span></a>
+  <nav class="nav__links">
+    <a href="#approach" data-scroll-to="approach">Подход</a>
+    <a href="#projects" data-scroll-to="projects">Объекты</a>
+    <a href="#process" data-scroll-to="process">Процесс</a>
+    <a href="#contact" data-scroll-to="contact">Связаться</a>
+  </nav>
+  <div class="nav__meta">
+    <a href="tel:+375290000000">+375 29 000-00-00</a>
+    <span class="nav__dot"></span>
+  </div>
+  <div class="nav__progress"><i id="navProgress"></i></div>
+</header>
+
+<main id="top">
+
+  <section class="hero" id="hero">
+    <canvas class="hero__canvas" id="heroCanvas"></canvas>
+    <div class="hero__veil"></div>
+
+    <div class="hero__content wrap">
+      <p class="eyebrow" data-reveal>Минск · Минская область · с 2011 года</p>
+
+      <h1 class="hero__title">
+        <span class="line"><span class="line__inner">Строим дома,</span></span>
+        <span class="line"><span class="line__inner"><em>которые</em></span></span>
+        <span class="line"><span class="line__inner">переживут нас.</span></span>
+      </h1>
+
+      <div class="hero__row">
+        <p class="hero__lead" data-reveal>Монолит, каркас, отделка. Один подрядчик на весь цикл: от геологии до ключей. Смета фиксируется в договоре.</p>
+        <a class="btn btn--fill" href="#contact" data-scroll-to="contact" data-cursor="обсудить">
+          Рассчитать дом
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+        </a>
+      </div>
+
+      <ul class="hero__stats">
+        <li data-reveal><b>148</b><span>объектов сдано</span></li>
+        <li data-reveal><b>420 000</b><span>м² построено</span></li>
+        <li data-reveal><b>14</b><span>месяцев средний цикл</span></li>
+        <li data-reveal><b>0</b><span>объектов с просрочкой в 2026</span></li>
+      </ul>
+    </div>
+
+    <div class="hero__scroll">
+      <span>Листайте</span>
+      <i></i>
+    </div>
+  </section>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Проектирование</span><i>◆</i><span>Монолит</span><i>◆</i><span>Каркас</span><i>◆</i><span>Фундамент</span><i>◆</i><span>Кровля</span><i>◆</i><span>Фасад</span><i>◆</i><span>Инженерия</span><i>◆</i>
+      <span>Проектирование</span><i>◆</i><span>Монолит</span><i>◆</i><span>Каркас</span><i>◆</i><span>Фундамент</span><i>◆</i><span>Кровля</span><i>◆</i><span>Фасад</span><i>◆</i><span>Инженерия</span><i>◆</i>
+    </div>
+  </div>
+
+  <section class="approach" id="approach">
+    <div class="wrap approach__grid">
+      <aside class="approach__side">
+        <p class="eyebrow">Подход</p>
+        <h2 class="approach__title">Три правила,<br>из которых<br>не выходим</h2>
+        <div class="approach__count"><b id="approachNum">01</b><span>/ 03</span></div>
+      </aside>
+
+      <div class="approach__stream" id="approachStream">
+        <article class="stmt" data-stmt="1">
+          <p class="stmt__num">01</p>
+          <h3>Смета не растёт<br>по ходу стройки</h3>
+          <p class="stmt__text">Считаем до договора: геология, материалы, работы, логистика. Всё, что не влезло в смету по нашей вине, — наш минус, а не ваш.</p>
+          <ul class="stmt__list">
+            <li>Фиксация цены в договоре</li>
+            <li>Прозрачная таблица материалов</li>
+            <li>Акт на каждый этап</li>
+          </ul>
+        </article>
+
+        <article class="stmt" data-stmt="2">
+          <p class="stmt__num">02</p>
+          <h3>Одна бригада<br>на весь цикл</h3>
+          <p class="stmt__text">Не передаём объект субподряду «на коробку». Люди, которые заливали фундамент, ведут дом до отделки и знают каждую закладную.</p>
+          <ul class="stmt__list">
+            <li>Свои монолитчики и отделочники</li>
+            <li>Прораб на объекте каждый день</li>
+            <li>Отчёт с фото каждую пятницу</li>
+          </ul>
+        </article>
+
+        <article class="stmt" data-stmt="3">
+          <p class="stmt__num">03</p>
+          <h3>Дом сдаём<br>с документами</h3>
+          <p class="stmt__text">Паспорт объекта, исполнительные схемы, гарантия на конструктив и инженерию, инструкция по эксплуатации. Не «на словах».</p>
+          <ul class="stmt__list">
+            <li>Гарантия 10 лет на конструктив</li>
+            <li>Исполнительная документация</li>
+            <li>Сервис после сдачи</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="projects" id="projects">
+    <div class="projects__pin" id="projectsPin">
+      <div class="projects__head wrap">
+        <p class="eyebrow">Объекты</p>
+        <h2 class="projects__title">Дома,<br>которые уже<br>стоят</h2>
+        <span class="projects__hint">Скролл вниз → горизонтально</span>
+      </div>
+
+      <div class="projects__track" id="projectsTrack">
+        <article class="card" data-cursor="смотреть">
+          <div class="card__media"><img src="https://media.base44.com/images/public/6ad37d78090d82fb591123ec/c24d56d5a_generated_image.png" alt="Монолитный дом в процессе стройки"></div>
+          <div class="card__meta">
+            <h3>Дом в Ратомке</h3>
+            <p>Монолит · 214 м² · 2026</p>
+            <span class="card__price">от 312 000 BYN</span>
+          </div>
+        </article>
+
+        <article class="card" data-cursor="смотреть">
+          <div class="card__media"><img src="https://media.base44.com/images/public/6ad37d78090d82fb591123ec/3255df3f3_generated_image.png" alt="Современный дом с панорамным остеклением"></div>
+          <div class="card__meta">
+            <h3>Дом под Минском</h3>
+            <p>Каркас · 168 м² · 2025</p>
+            <span class="card__price">от 246 000 BYN</span>
+          </div>
+        </article>
+
+        <article class="card" data-cursor="смотреть">
+          <div class="card__media"><img src="https://media.base44.com/images/public/6ad37d78090d82fb591123ec/16179d592_generated_image.png" alt="Армирование монолитной плиты"></div>
+          <div class="card__meta">
+            <h3>Бетон и арматура</h3>
+            <p>Монолит · 340 м² · 2025</p>
+            <span class="card__price">от 486 000 BYN</span>
+          </div>
+        </article>
+
+        <article class="card" data-cursor="смотреть">
+          <div class="card__media"><img src="https://media.base44.com/images/public/6ad37d78090d82fb591123ec/dac3a3c69_generated_image.png" alt="Стройплощадка ночью с краном"></div>
+          <div class="card__meta">
+            <h3>Дом в Дроздах</h3>
+            <p>Монолит + отделка · 290 м² · 2026</p>
+            <span class="card__price">от 418 000 BYN</span>
+          </div>
+        </article>
+
+        <article class="card card--more" data-cursor="все объекты">
+          <div class="card__media card__media--plain">
+            <span>148</span>
+            <p>объектов<br>в архиве</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="seq" id="process">
+    <div class="seq__stage">
+      <div class="seq__frames">
+        <div class="seq__frame is-on" data-frame="0"><img src="https://media.base44.com/images/public/6ad37d78090d82fb591123ec/cb2e4e24f_generated_image.png" alt="Проект и чертежи"></div>
+        <div class="seq__frame" data-frame="1"><img src="https://media.base44.com/images/public/6ad37d78090d82fb591123ec/16179d592_generated_image.png" alt="Армирование и фундамент"></div>
+        <div class="seq__frame" data-frame="2"><img src="https://media.base44.com/images/public/6ad37d78090d82fb591123ec/c24d56d5a_generated_image.png" alt="Монолитный каркас"></div>
+        <div class="seq__frame" data-frame="3"><img src="https://media.base44.com/images/public/6ad37d78090d82fb591123ec/3255df3f3_generated_image.png" alt="Готовый дом"></div>
+      </div>
+
+      <div class="seq__content wrap">
+        <p class="eyebrow seq__eyebrow">Как проходит стройка</p>
+        <h2 class="seq__title" id="seqTitle">Проект</h2>
+        <p class="seq__text" id="seqText">До первой лопаты: геология участка, посадка дома, рабочие чертежи и смета на 1 800 позиций. Вы видите финальную сумму до подписания.</p>
+        <div class="seq__bar"><i id="seqBar"></i></div>
+        <ul class="seq__steps">
+          <li class="is-on" data-step="0">Проект</li>
+          <li data-step="1">Фундамент</li>
+          <li data-step="2">Коробка</li>
+          <li data-step="3">Отделка</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="numbers">
+    <div class="wrap numbers__grid">
+      <div class="numbers__item">
+        <p class="eyebrow">Гарантия</p>
+        <b class="counter" data-to="10">0</b><span class="numbers__unit">лет на конструктив</span>
+        <p>Гарантийный талон и сервисный договор — часть пакета документов при сдаче.</p>
+      </div>
+      <div class="numbers__item">
+        <p class="eyebrow">Смета</p>
+        <b class="counter" data-to="1800">0</b><span class="numbers__unit">позиций в расчёте</span>
+        <p>По каждой позиции — объём, цена за единицу и поставщик. Без «работы прочие».</p>
+      </div>
+      <div class="numbers__item">
+        <p class="eyebrow">Скорость</p>
+        <b class="counter" data-to="14">0</b><span class="numbers__unit">месяцев цикл</span>
+        <p>От геологии до уборки площадки. Каждую пятницу — фотоотчёт и план на неделю.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote">
+    <div class="wrap">
+      <blockquote>
+        <p>«Взяли дом с недостроенным монолитом и закрыли его за четырнадцать месяцев. Смета совпала с договором до рубля — я до сих пор не верю.»</p>
+        <footer>
+          <span>Андрей Ковалёнок</span>
+          <span>Дом в Ратомке, 214 м²</span>
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <p class="eyebrow">Свободно 2 участка на осень 2027</p>
+      <h2 class="contact__title">
+        <span class="line"><span class="line__inner">Расскажите</span></span>
+        <span class="line"><span class="line__inner">про участок —</span></span>
+        <span class="line"><span class="line__inner"><em>посчитаем</em>.</span></span>
+      </h2>
+
+      <div class="contact__grid">
+        <form class="form" id="leadForm" novalidate>
+          <label class="field">
+            <span>Имя</span>
+            <input type="text" name="name" placeholder="Как к вам обращаться" required>
+          </label>
+          <label class="field">
+            <span>Телефон</span>
+            <input type="tel" name="phone" placeholder="+375" required>
+          </label>
+          <label class="field">
+            <span>Площадь и район</span>
+            <input type="text" name="details" placeholder="Например: 180 м², Дзержинский район">
+          </label>
+          <button class="btn btn--fill btn--wide" type="submit">
+            Отправить заявку
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+          <p class="form__note">Перезвоним в рабочее время. Без рассылок.</p>
+          <p class="form__done" id="formDone" hidden>Заявка ушла. Свяжемся в течение дня.</p>
+        </form>
+
+        <div class="contact__side">
+          <div class="contact__block">
+            <span class="eyebrow">Телефон</span>
+            <a href="tel:+375290000000">+375 29 000-00-00</a>
+            <a href="mailto:hello@monolit.by">hello@monolit.by</a>
+          </div>
+          <div class="contact__block">
+            <span class="eyebrow">Офис</span>
+            <p>Минск, ул. Притыцкого 29, офис 412</p>
+            <p>Пн—Пт 9:00—19:00</p>
+          </div>
+          <div class="contact__block">
+            <span class="eyebrow">Реквизиты</span>
+            <p>ООО «Монолит-Строй»<br>УНП 192345678</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="wrap footer__row">
+        <span>МОНОЛИТ® · строительство домов · 2011—2026</span>
+        <span>Минск · Минская область</span>
+        <span>Сделано в SiteFast Studio</span>
+      </div>
+    </footer>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
