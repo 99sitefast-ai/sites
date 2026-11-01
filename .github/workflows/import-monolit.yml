@@ -1,0 +1,29 @@
+name: import-monolit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/import-monolit.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download build
+        run: |
+          curl -sL "https://base44.app/api/apps/6ad37d78090d82fb591123ec/files/mp/public/6ad37d78090d82fb591123ec/b37fadc4a_monolit-v2-build.zip" -o /tmp/site.zip
+          rm -rf monolit
+          mkdir -p monolit
+          unzip -q /tmp/site.zip -d monolit
+          ls -R monolit
+      - name: Commit
+        run: |
+          git config user.name "sitefast-bot"
+          git config user.email "bot@sitefast.by"
+          git add -A monolit
+          git commit -m "monolit: studio build v2" || echo "no changes"
+          git push
