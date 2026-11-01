@@ -1,0 +1,25 @@
+name: ivashkin-publish
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get archive
+        env:
+          SRC: https://base44.app/api/apps/6ad37d78090d82fb591123ec/files/mp/public/6ad37d78090d82fb591123ec/41c50ae3a_ivashkin-build.zip
+        run: |
+          wget -q -O /tmp/site.zip "$SRC"
+          rm -rf ivashkin && mkdir -p ivashkin
+          unzip -q /tmp/site.zip -d ivashkin
+          ls -R ivashkin
+      - name: Save
+        run: |
+          git config user.name sitefast-bot
+          git config user.email bot@sitefast.by
+          git add ivashkin
+          git commit -m "ivashkin: light studio build" || true
+          git push
